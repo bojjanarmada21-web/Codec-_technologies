@@ -1,0 +1,39 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample social media data
+data = {
+    "Time": ["9 AM", "12 PM", "3 PM", "6 PM", "9 PM"],
+    "Likes": [120, 250, 180, 320, 200],
+    "Comments": [15, 30, 20, 45, 25],
+    "Shares": [10, 20, 15, 35, 18],
+    "Impressions": [1000, 1800, 1500, 2500, 1700]
+}
+
+df = pd.DataFrame(data)
+
+# Calculate Engagement Score
+df["Engagement"] = df["Likes"] + df["Comments"] + df["Shares"]
+
+# Find Best Posting Time
+best_time = df.loc[df["Engagement"].idxmax(), "Time"]
+
+print("Social Media Engagement Dashboard")
+print("---------------------------------")
+print(df)
+
+print("\nBest Posting Time:", best_time)
+
+print("\nContent Strategy Recommendation:")
+print("- Post at", best_time)
+print("- Create engaging content.")
+print("- Encourage comments and shares.")
+print("- Use trending hashtags.")
+print("- Post consistently.")
+
+# Visualize Engagement
+plt.bar(df["Time"], df["Engagement"])
+plt.title("Social Media Engagement")
+plt.xlabel("Posting Time")
+plt.ylabel("Engagement Score")
+plt.show()
