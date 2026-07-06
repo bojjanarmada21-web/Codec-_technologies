@@ -1,0 +1,26 @@
+import pandas as pd
+from sklearn.ensemble import IsolationForest
+
+# Load dataset
+data = pd.read_csv("transactions.csv")
+
+# Select numerical features
+X = data[['Amount']]
+
+# Train Isolation Forest
+model = IsolationForest(contamination=0.02, random_state=42)
+model.fit(X)
+
+# Predict anomalies
+data['Prediction'] = model.predict(X)
+
+# Convert predictions
+# 1 = Normal, -1 = Fraud
+data['Fraud'] = data['Prediction'].apply(lambda x: "Fraud" if x == -1 else "Normal")
+
+# Display results
+print(data[['Amount', 'Fraud']])
+
+# Save output
+data.to_csv("fraud_detection_result.csv", index=False)
+print("Fraud detection completed!")
